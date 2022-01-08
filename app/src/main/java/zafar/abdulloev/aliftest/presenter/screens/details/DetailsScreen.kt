@@ -41,7 +41,6 @@ fun DetailsScreen(
     SetTitle(screenState, guide, appTitle)
 
     guide?.data?.let { fullGuide ->
-
         Column(
             Modifier
                 .verticalScroll(rememberScrollState())
@@ -93,9 +92,9 @@ fun DetailsScreen(
                 )
             }
         }
-
-        Loading(isLoading = screenState is ScreenState.Loading)
     }
+
+    Loading(isLoading = screenState is ScreenState.Loading)
 
     DisposableEffect(key1 = Unit) {
         onDispose { appTitle.value = appName }

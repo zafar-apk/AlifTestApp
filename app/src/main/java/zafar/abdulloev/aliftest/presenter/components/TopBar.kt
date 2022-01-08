@@ -1,8 +1,8 @@
 package zafar.abdulloev.aliftest.presenter.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -23,10 +23,7 @@ fun TopBar(
     title: String = ""
 ) {
 
-    TopAppBar(
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp)
-    ) {
+    TopAppBar(modifier = Modifier.fillMaxWidth()) {
         AnimatedVisibility(visible = hasBackButton) {
             IconButton(onClick = navController::navigateUp) {
                 Icon(
@@ -37,6 +34,7 @@ fun TopBar(
         }
 
         Text(
+            modifier = Modifier.padding(horizontal = 8.dp),
             text = title,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
