@@ -18,6 +18,17 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -54,9 +65,9 @@ android {
 }
 
 dependencies {
-    implementation("androidx.paging:paging-common-ktx:3.1.0")
     core()
     compose()
+    paging()
     retrofit()
     roomDB()
     gsonConverter()

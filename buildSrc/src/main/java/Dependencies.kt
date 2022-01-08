@@ -19,6 +19,13 @@ fun DependencyHandler.gsonConverter() {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
 
+fun DependencyHandler.paging() {
+    implementation ("androidx.paging:paging-compose:1.0.0-alpha14")
+    implementation("androidx.paging:paging-common-ktx:3.1.0")
+    implementation("androidx.room:room-paging:2.4.0")
+}
+
+
 fun DependencyHandler.roomDB() {
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")

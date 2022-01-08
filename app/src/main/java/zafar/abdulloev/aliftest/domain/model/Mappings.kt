@@ -1,8 +1,8 @@
 package zafar.abdulloev.aliftest.domain.model
 
-import zafar.abdulloev.aliftest.data.model.Image
+import zafar.abdulloev.aliftest.data.model.BaseGuide
 
-fun Image.toEntity() = ImageEntity(
+fun BaseGuide.toEntity() = GuideEntity(
     endDate = endDate ?: "",
     icon = icon ?: "",
     name = name ?: "",

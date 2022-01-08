@@ -1,4 +1,4 @@
-package zafar.abdulloev.aliftest.ui.theme
+package zafar.abdulloev.aliftest.presenter.common.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

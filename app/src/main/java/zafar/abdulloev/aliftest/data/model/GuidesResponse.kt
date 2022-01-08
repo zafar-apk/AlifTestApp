@@ -2,9 +2,9 @@ package zafar.abdulloev.aliftest.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class ImageResponse(
+class GuidesResponse(
     @SerializedName("data")
-    val data: List<Image> = emptyList(),
+    val data: List<BaseGuide> = emptyList(),
     @SerializedName("total")
     val total: Int = 0
 )

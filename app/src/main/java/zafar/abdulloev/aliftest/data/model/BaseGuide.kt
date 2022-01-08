@@ -3,7 +3,7 @@ package zafar.abdulloev.aliftest.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class Image(
+class BaseGuide(
     @SerializedName("endDate")
     val endDate: String? = null,
     @SerializedName("icon")

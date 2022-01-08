@@ -1,4 +1,4 @@
-package zafar.abdulloev.aliftest.ui.theme
+package zafar.abdulloev.aliftest.presenter.common.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
