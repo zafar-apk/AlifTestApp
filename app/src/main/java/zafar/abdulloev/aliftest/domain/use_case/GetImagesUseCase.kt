@@ -14,7 +14,7 @@ import javax.inject.Inject
 class GetImagesUseCase @Inject constructor(private val repo: GuidesRepo) {
 
     suspend operator fun invoke(): Resource<Flow<PagingData<GuideEntity>>> {
-        val count = repo.getCount()
+        val count = repo.getCountInDB()
         var isSuccess = true
 
         if (count == 0) isSuccess = getFromNetwork()
@@ -44,7 +44,7 @@ class GetImagesUseCase @Inject constructor(private val repo: GuidesRepo) {
     private suspend fun fillDataBaseWithException() {
         val data = repo.getGuidesFromNetwork().body()?.data!!
         val guidesList = data.map { it.toEntity() }
-        repo.insert(*guidesList.toTypedArray())
+        repo.insertToDB(*guidesList.toTypedArray())
     }
 
 }

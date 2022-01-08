@@ -16,7 +16,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import zafar.abdulloev.aliftest.domain.model.ErrorModel
 import zafar.abdulloev.aliftest.domain.model.GuideEntity
-import zafar.abdulloev.aliftest.domain.screen_state.MainScreenState
+import zafar.abdulloev.aliftest.domain.model.Screen
+import zafar.abdulloev.aliftest.domain.screen_state.ScreenState
 import zafar.abdulloev.aliftest.presenter.components.GuideItem
 import zafar.abdulloev.aliftest.presenter.components.Loading
 
@@ -28,21 +29,28 @@ fun MasterScreen(
 ) {
 
     val screenState by viewModel.screenState
-    val guides = (screenState as? MainScreenState.Success)?.data?.collectAsLazyPagingItems()
+    val guides = (screenState as? ScreenState.Success)?.data?.collectAsLazyPagingItems()
 
     Error(screenState, errorState, viewModel)
 
-    Guides(guides)
+    Guides(
+        guides,
+        onClick = { url ->
+            navController.navigate(
+                Screen.DetailsScreen.passId(url.substringAfterLast('/'))
+            )
+        }
+    )
 
     Loading(
-        isLoading = screenState is MainScreenState.Loading
+        isLoading = screenState is ScreenState.Loading
                 && errorState.value.isError.not()
     )
 
 }
 
 @Composable
-private fun Guides(guides: LazyPagingItems<GuideEntity>?) {
+private fun Guides(guides: LazyPagingItems<GuideEntity>?, onClick: (String) -> Unit) {
     guides?.let {
         LazyColumn {
             item {
@@ -51,7 +59,7 @@ private fun Guides(guides: LazyPagingItems<GuideEntity>?) {
 
             items(guides) { guide ->
                 if (guide != null) {
-                    GuideItem(guide)
+                    GuideItem(guide, onClick = onClick)
                 }
             }
         }
@@ -60,12 +68,12 @@ private fun Guides(guides: LazyPagingItems<GuideEntity>?) {
 
 @Composable
 private fun Error(
-    screenState: MainScreenState,
+    screenState: ScreenState<*>,
     errorState: MutableState<ErrorModel>,
     viewModel: MasterViewModel
 ) {
     LaunchedEffect(key1 = screenState) {
-        if (screenState is MainScreenState.Error) {
+        if (screenState is ScreenState.Error) {
             errorState.value = ErrorModel(
                 isError = true,
                 action = viewModel::loadGuides

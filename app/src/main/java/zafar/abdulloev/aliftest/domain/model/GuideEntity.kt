@@ -6,11 +6,10 @@ import zafar.abdulloev.aliftest.GUIDE_TABLE
 
 @Entity(tableName = GUIDE_TABLE)
 class GuideEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val url: String,
     val endDate: String,
     val icon: String,
     val name: String,
     val startDate: String,
-    val url: String
 )

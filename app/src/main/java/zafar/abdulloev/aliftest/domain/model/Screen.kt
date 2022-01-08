@@ -4,6 +4,8 @@ sealed class Screen(val route: String) {
 
     object MasterScreen : Screen("master_screen")
 
-    object DetailsScreen : Screen("detail_screen")
+    object DetailsScreen : Screen("detail_screen") {
+        fun passId(id: String) = "$route/$id"
+    }
 
 }

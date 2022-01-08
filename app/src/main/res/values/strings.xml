@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">AlifTestApp</string>
+    <string name="app_name">Guide app</string>
     <string name="start_date_label">"Start date:\n"</string>
     <string name="end_date_label">"End date:\n"</string>
+    <string name="city_label">"City: "</string>
+    <string name="state_label">"State: "</string>
 </resources>
