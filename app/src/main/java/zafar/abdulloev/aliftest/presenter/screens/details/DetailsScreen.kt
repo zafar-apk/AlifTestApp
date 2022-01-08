@@ -1,12 +1,13 @@
 package zafar.abdulloev.aliftest.presenter.screens.details
 
+import android.content.res.Configuration
+import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,59 +39,27 @@ fun DetailsScreen(
     val appName = stringResource(id = R.string.app_name)
     val guide = screenState as? ScreenState.Success
 
+    val currentConfiguration = LocalConfiguration.current
+    val isLandScape = currentConfiguration.orientation == ORIENTATION_LANDSCAPE
+
     SetTitle(screenState, guide, appTitle)
 
     guide?.data?.let { fullGuide ->
-        Column(
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
 
-            GuideIcon(
-                url = fullGuide.fullGuideEntity.icon, modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            )
+        if (isLandScape) {
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                GuideIconInternal(fullGuide, isLandScape)
 
-            Spacer(modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.size(16.dp))
 
-            Text(text = fullGuide.fullGuideEntity.name, style = Typography.subtitle1)
-
-            Spacer(modifier = Modifier.size(16.dp))
-
-            fullGuide.venue?.city?.let { city ->
-                Text(
-                    text = buildString {
-                        append(stringResource(id = R.string.city_label))
-                        append(city)
-                    },
-                    style = Typography.subtitle2
-                )
+                Body(currentConfiguration, fullGuide, isLandScape)
             }
-
-            fullGuide.venue?.state?.let { state ->
-                Text(
-                    text = buildString {
-                        append(stringResource(id = R.string.state_label))
-                        append(state)
-                    },
-                    style = Typography.subtitle2
-                )
-            }
-
-            fullGuide.fullGuideEntity.endDate?.let { endDate ->
-                Text(
-                    modifier = Modifier.align(End),
-                    text = buildString {
-                        append(stringResource(id = R.string.end_date_label))
-                        append(endDate)
-                    },
-                    style = Typography.subtitle2
-                )
-            }
+        } else {
+            Body(currentConfiguration, fullGuide, isLandScape)
         }
     }
 
@@ -99,6 +68,78 @@ fun DetailsScreen(
     DisposableEffect(key1 = Unit) {
         onDispose { appTitle.value = appName }
     }
+}
+
+@Composable
+private fun Body(
+    currentConfiguration: Configuration,
+    fullGuide: FullGuideWithVenue,
+    isLandScape: Boolean
+) {
+    Column(
+        modifier = if (isLandScape) {
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        } else Modifier.padding(16.dp)
+    ) {
+
+        if (!isLandScape) {
+            GuideIconInternal(fullGuide, false)
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Text(text = fullGuide.fullGuideEntity.name, style = Typography.subtitle1)
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        fullGuide.venue?.city?.let { city ->
+            Text(
+                text = buildString {
+                    append(stringResource(id = R.string.city_label))
+                    append(city)
+                },
+                style = Typography.subtitle2
+            )
+        }
+
+        fullGuide.venue?.state?.let { state ->
+            Text(
+                text = buildString {
+                    append(stringResource(id = R.string.state_label))
+                    append(state)
+                },
+                style = Typography.subtitle2
+            )
+        }
+
+        fullGuide.fullGuideEntity.endDate?.let { endDate ->
+            Text(
+                modifier = Modifier.align(End),
+                text = buildString {
+                    append(stringResource(id = R.string.end_date_label))
+                    append(endDate)
+                },
+                style = Typography.subtitle2
+            )
+        }
+    }
+}
+
+@Composable
+private fun GuideIconInternal(
+    fullGuide: FullGuideWithVenue,
+    isLandScape: Boolean
+) {
+    GuideIcon(
+        url = fullGuide.fullGuideEntity.icon,
+        modifier = if (isLandScape) Modifier
+            .size(200.dp)
+        else Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    )
 }
 
 @Composable

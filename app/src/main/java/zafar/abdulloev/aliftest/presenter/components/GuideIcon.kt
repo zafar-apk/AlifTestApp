@@ -18,6 +18,7 @@ fun GuideIcon(
         modifier = modifier,
         painter = rememberImagePainter(data = url) {
             placeholder(R.drawable.placeholder)
+            error(R.drawable.placeholder)
         },
         contentDescription = "Guide icon"
     )
