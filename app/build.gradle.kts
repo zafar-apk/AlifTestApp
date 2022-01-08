@@ -54,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.paging:paging-common-ktx:3.1.0")
     core()
     compose()
     retrofit()

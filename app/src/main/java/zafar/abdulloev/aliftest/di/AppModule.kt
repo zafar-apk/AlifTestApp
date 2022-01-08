@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import zafar.abdulloev.aliftest.BASE_URL
 import zafar.abdulloev.aliftest.BuildConfig
-import zafar.abdulloev.aliftest.data.api.Api
+import zafar.abdulloev.aliftest.data.repo.Api
 import javax.inject.Singleton
 
 @Module
@@ -52,6 +52,5 @@ object AppModule {
     fun provideApi(
         retrofit: Retrofit
     ) = retrofit.create(Api::class.java)
-
 
 }
