@@ -18,7 +18,8 @@ class GetSingleGuideUseCase @Inject constructor(private val repo: GuidesRepo) {
 
         return repo.getSingleGuideFromDB(id)?.let {
             Resource.Success(it)
-        } ?: Resource.Error
+        }
+            ?: Resource.Error
     }
 
     private suspend fun getFromNetwork(url: String): FullGuideWithVenue? {

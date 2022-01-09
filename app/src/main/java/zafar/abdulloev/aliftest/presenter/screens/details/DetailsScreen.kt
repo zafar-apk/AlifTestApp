@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import zafar.abdulloev.aliftest.R
+import zafar.abdulloev.aliftest.domain.model.ErrorModel
 import zafar.abdulloev.aliftest.domain.model.FullGuideEntity
 import zafar.abdulloev.aliftest.domain.model.FullGuideWithVenue
 import zafar.abdulloev.aliftest.domain.screen_state.ScreenState
@@ -31,6 +32,7 @@ import zafar.abdulloev.aliftest.presenter.components.Loading
 fun DetailsScreen(
     navController: NavController,
     appTitle: MutableState<String>,
+    errorState: MutableState<ErrorModel>,
     url: String?,
     viewModel: DetailsViewModel = hiltViewModel()
 ) {
@@ -41,6 +43,8 @@ fun DetailsScreen(
 
     val currentConfiguration = LocalConfiguration.current
     val isLandScape = currentConfiguration.orientation == ORIENTATION_LANDSCAPE
+
+    Error(screenState, errorState, viewModel)
 
     SetTitle(screenState, guide, appTitle)
 
@@ -67,6 +71,19 @@ fun DetailsScreen(
 
     DisposableEffect(key1 = Unit) {
         onDispose { appTitle.value = appName }
+    }
+}
+
+@Composable
+private fun Error(
+    screenState: ScreenState<FullGuideWithVenue>,
+    errorState: MutableState<ErrorModel>,
+    viewModel: DetailsViewModel
+) {
+    LaunchedEffect(key1 = screenState) {
+        if (screenState is ScreenState.Error) {
+            errorState.value = ErrorModel(isError = true, action = viewModel::laodSingleGuide)
+        } else errorState.value = errorState.value.copy(isError = false)
     }
 }
 

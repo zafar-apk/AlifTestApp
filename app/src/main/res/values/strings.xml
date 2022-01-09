@@ -4,4 +4,6 @@
     <string name="end_date_label">"End date:\n"</string>
     <string name="city_label">"City: "</string>
     <string name="state_label">"State: "</string>
+    <string name="error_text">Cannot reach the server</string>
+    <string name="retry">Try again</string>
 </resources>
