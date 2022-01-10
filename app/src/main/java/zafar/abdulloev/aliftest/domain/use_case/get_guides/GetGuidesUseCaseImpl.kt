@@ -1,4 +1,4 @@
-package zafar.abdulloev.aliftest.domain.use_case
+package zafar.abdulloev.aliftest.domain.use_case.get_guides
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -11,19 +11,19 @@ import zafar.abdulloev.aliftest.domain.model.GuideEntity
 import zafar.abdulloev.aliftest.domain.model.toEntity
 import javax.inject.Inject
 
-class GetImagesUseCase @Inject constructor(private val repo: GuidesRepo) {
+class GetGuidesUseCaseImpl @Inject constructor(private val repo: GuidesRepo) : GetGuidesUseCase {
 
-    suspend operator fun invoke(): Resource<Flow<PagingData<GuideEntity>>> {
-        val count = repo.getCountInDB()
-        var isSuccess = true
-
-        if (count == 0) isSuccess = getFromNetwork()
-        if (!isSuccess) return Resource.Error
+    override suspend operator fun invoke(): Resource<Flow<PagingData<GuideEntity>>> {
+        if (repo.getCountInDB() == 0) {
+            if (!getFromNetwork()) {
+                return Resource.Error
+            }
+        }
 
         return getPagingFlowFromDB()
     }
 
-    private fun getPagingFlowFromDB(): Resource.Success<Flow<PagingData<GuideEntity>>> {
+    private fun getPagingFlowFromDB(): Resource<Flow<PagingData<GuideEntity>>> {
         val config = PagingConfig(
             pageSize = PAGE_SIZE,
             enablePlaceholders = false

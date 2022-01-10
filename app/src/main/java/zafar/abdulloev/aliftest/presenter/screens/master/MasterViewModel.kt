@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 import zafar.abdulloev.aliftest.data.model.Resource
 import zafar.abdulloev.aliftest.domain.model.GuideEntity
 import zafar.abdulloev.aliftest.domain.screen_state.ScreenState
-import zafar.abdulloev.aliftest.domain.use_case.GetImagesUseCase
+import zafar.abdulloev.aliftest.domain.use_case.get_guides.GetGuidesUseCaseImpl
 import javax.inject.Inject
 
 private typealias MasterScreenState = ScreenState<Flow<PagingData<GuideEntity>>>
 
 @HiltViewModel
-class MasterViewModel @Inject constructor(private val useCase: GetImagesUseCase) : ViewModel() {
+class MasterViewModel @Inject constructor(private val useCase: GetGuidesUseCaseImpl) : ViewModel() {
 
     private val _screenState: MutableState<MasterScreenState> =
         mutableStateOf(ScreenState.Loading)

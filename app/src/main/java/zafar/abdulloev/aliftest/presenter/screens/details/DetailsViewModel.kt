@@ -10,16 +10,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import zafar.abdulloev.aliftest.GUIDE_URL
 import zafar.abdulloev.aliftest.data.model.Resource
-import zafar.abdulloev.aliftest.domain.model.FullGuideEntity
 import zafar.abdulloev.aliftest.domain.model.FullGuideWithVenue
 import zafar.abdulloev.aliftest.domain.screen_state.ScreenState
-import zafar.abdulloev.aliftest.domain.use_case.GetSingleGuideUseCase
+import zafar.abdulloev.aliftest.domain.use_case.get_single_guide.GetSingleGuideUseCaseImpl
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val useCase: GetSingleGuideUseCase,
+    private val useCase: GetSingleGuideUseCaseImpl,
     private val stateHandle: SavedStateHandle
 ) : ViewModel() {
 

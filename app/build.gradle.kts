@@ -66,11 +66,14 @@ android {
 
 dependencies {
     core()
+    testing()
+
     compose()
     paging()
+    coil()
+
     retrofit()
     roomDB()
     gsonConverter()
-    coil()
     hilt()
 }

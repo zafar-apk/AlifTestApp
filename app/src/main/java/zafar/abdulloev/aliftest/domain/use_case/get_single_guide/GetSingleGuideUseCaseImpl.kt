@@ -1,4 +1,4 @@
-package zafar.abdulloev.aliftest.domain.use_case
+package zafar.abdulloev.aliftest.domain.use_case.get_single_guide
 
 import zafar.abdulloev.aliftest.data.model.Resource
 import zafar.abdulloev.aliftest.data.repo.interfaces.GuidesRepo
@@ -6,7 +6,7 @@ import zafar.abdulloev.aliftest.domain.model.FullGuideWithVenue
 import zafar.abdulloev.aliftest.domain.model.toEntity
 import javax.inject.Inject
 
-class GetSingleGuideUseCase @Inject constructor(private val repo: GuidesRepo) {
+class GetSingleGuideUseCaseImpl @Inject constructor(private val repo: GuidesRepo) {
 
     suspend operator fun invoke(id: String): Resource<FullGuideWithVenue> {
         val fromDb = repo.getSingleGuideFromDB(id)

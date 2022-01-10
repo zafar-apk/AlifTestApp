@@ -21,7 +21,7 @@ fun DependencyHandler.gsonConverter() {
 }
 
 fun DependencyHandler.paging() {
-    implementation ("androidx.paging:paging-compose:1.0.0-alpha14")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
     implementation("androidx.paging:paging-common-ktx:3.1.0")
     implementation("androidx.room:room-paging:2.4.0")
 }
@@ -40,9 +40,13 @@ fun DependencyHandler.hilt() {
 }
 
 fun DependencyHandler.testing() {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("android.arch.core:core-testing:1.1.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    testImplementation("junit:junit:4.13.2")
 }
 
 fun DependencyHandler.retrofit() {
